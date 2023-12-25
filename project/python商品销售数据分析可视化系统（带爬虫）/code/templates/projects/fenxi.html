@@ -1,0 +1,158 @@
+{% extends 'projects/base.html' %}
+{% block title %}分析{% endblock %}
+{% block content %}
+        <div class="content">
+          <ul class="breadcrumb">
+            <li>
+              <p>分析页面</p>
+            </li>
+         </ul>
+          <div class="page-title">
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="grid simple form-grid">
+                <div class="grid-body no-border">
+                    <div class="row column-seperation">
+                      <div class="col-md-6">
+                          <h4>商品销售数据分析<span style=" float:right;"><a onclick="spider1('{% url 'lvguowang:spiders1' %}')">重新生成分析图片</a></span></h4>
+                        <div class="row form-row">
+                                                        <table class="table table-striped table-flip-scroll cf">
+                        <thead class="cf">
+                          <tr>
+                                <th width="200px">商品总数</th>
+                              <th width="400px">1000元以下</th>
+                              <th width="400px">1000-2000</th>
+                              <th width="400px">2000-3000</th>
+                              <th width="400px">3000-4000</th>
+                              <th width="400px">4000元以上</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                              <td>{{ datas.count}}</td>
+                              <td>{{ num1 }}</td>
+                              <td>{{ num2 }}</td>
+                              <td>{{ num3 }}</td>
+                              <td>{{ num4 }}</td>
+                              <td>{{ num5 }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                        </div>
+
+                      <div>
+                          <center><h3>手机各价格区间数量</h3></center>
+                          <img src="../static/fenxi_img/danjia_section.jpg"  style="border:0px solid #478332;width: 50%;height: 50%">
+                          <img src="../static/fenxi_img/bing_danjia.jpg" style="border:0px solid #478332;width: 50%;height: 50%;float: right;">
+                      </div>
+                      <br>
+                          <div>
+                          <center><h3>前五品牌商品数量占比饼图</h3></center>
+                          <img src="/static/fenxi_img/pinpai_section.jpg"  style="border:0px solid #478332;width: 50%;height: 50%">
+                          <img src="/static/fenxi_img/bing_pinpai.jpg" style="border:0px solid #478332;width: 50%;height: 50%;float: right;">
+                      </div>
+                      <br/>
+                      <div>
+                          <center><h3>差评数前五商品</h3></center>
+                          <table class="table table-striped table-flip-scroll cf">
+                        <thead class="cf">
+                          <tr>
+                                <th width="250px">关键词</th>
+                                <th width="150px">店名</th>
+                                <th width="100px">品牌</th>
+                                <th width="200px">型号</th>
+                                <th width="80px">销量</th>
+                                <th width="80px">价格</th>
+                                <th width="80px">好评率</th>
+                              <th width="80px">差评数</th>
+                                <th width="100px">去查看</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for data in chaping_datas %}
+                          <tr>
+                              <td>{{ data.name }}</td>
+                              <td>{{ data.shopname }}</td>
+                              <td>{{ data.pinpai }}</td>
+                              <td>{{ data.xinghao }}</td>
+                              <td>{{ data.count }}</td>
+                          <td>{{ data.price }}元</td>
+                           <td>{{ data.haoping }}%</td>
+                              <td>{{ data.chaping }}</td>
+                              <td><a href="{{ data.url }}">进入</a></td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                          <img src="/static/fenxi_img/chaping_section.jpg">
+                      </div>
+                      <br/>
+                                                <div>
+                          <center><h3>好评率前五商品</h3></center>
+                          <table class="table table-striped table-flip-scroll cf">
+                        <thead class="cf">
+                          <tr>
+                                <th width="250px">关键词</th>
+                                <th width="150px">店名</th>
+                                <th width="100px">品牌</th>
+                                <th width="200px">型号</th>
+                                <th width="80px">销量</th>
+                                <th width="80px">价格</th>
+                                <th width="80px">好评率</th>
+                              <th width="80px">差评数</th>
+                                <th width="100px">去查看</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for data in haoping_datas %}
+                          <tr>
+                              <td>{{ data.name }}</td>
+                              <td>{{ data.shopname }}</td>
+                              <td>{{ data.pinpai }}</td>
+                              <td>{{ data.xinghao }}</td>
+                              <td>{{ data.count }}</td>
+                          <td>{{ data.price }}元</td>
+                           <td>{{ data.haoping }}%</td>
+                              <td>{{ data.chaping }}</td>
+                              <td><a href="{{ data.url }}">进入</a></td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                          <img src="/static/fenxi_img/haoping_section.jpg">
+                      </div>
+                      <br/>
+                                                <br/>
+                      <div>
+                          <center><h3>区间销售数</h3></center>
+                          <img src="/static/fenxi_img/zhexianxiaoshu.jpg">
+                      </div>
+                      <br/>
+
+
+                      </div>
+
+
+
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+{% block start1 %}
+     <script>
+         function spider1(url) {
+            $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (data) {
+                alert("启动成功")
+            }
+        })
+
+	}
+</script>
+{% endblock %}

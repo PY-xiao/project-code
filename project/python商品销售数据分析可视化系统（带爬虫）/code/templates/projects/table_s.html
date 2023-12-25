@@ -1,0 +1,75 @@
+{% extends 'projects/base.html' %}
+
+{% block title %} 主页 {% endblock %}
+
+{% block content %}
+
+        <div class="content">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="grid simple ">
+                    <div class="grid-title no-border">
+                      <h4><span class="semi-bold"></span></h4>
+                      <div class="tools">
+                        <a href="javascript:;" class="collapse"></a>
+                        <a href="#grid-config" data-toggle="modal" class="config"></a>
+                        <a href="javascript:;" class="reload"></a>
+                      </div>
+                    </div>
+                    <div class="grid-body no-border">
+                      <h1> <span class="semi-bold">系统主页</span></h1>
+                      <p>这里是您爬取的商品数据信息<code></code>
+                      </p>
+                      <form method="post" action="{% url 'lvguowang:select_all' %}">
+                            {% csrf_token %}
+                        <label>请输入你要搜索的关键词：</label>
+
+
+                        <input type="text" name="projects_name" value="" class="guo-input-1" id="guo-ajax-Devicenumber">
+                        <input type="submit" id="guo-sou-ajax" value="搜索" />
+                        </form>
+                      <br>
+                      <table class="table table-striped table-flip-scroll cf">
+                        <thead class="cf">
+                          <tr>
+                                <th width="250px">关键词</th>
+                                <th width="150px">店名</th>
+                                <th width="100px">品牌</th>
+                                <th width="200px">型号</th>
+                                <th width="80px">销量</th>
+                                <th width="80px">价格</th>
+                                <th width="80px">好评率</th>
+                              <th width="80px">差评数</th>
+                                <th width="100px">去查看</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for data in datas %}
+                          <tr>
+                              <td>{{ data.name }}</td>
+                              <td>{{ data.shopname }}</td>
+                              <td>{{ data.pinpai }}</td>
+                              <td>{{ data.xinghao }}</td>
+                              <td>{{ data.count }}</td>
+                          <td>{{ data.price }}元</td>
+                           <td>{{ data.haoping }}%</td>
+                              <td>{{ data.chaping }}</td>
+                              <td><a href="{{ data.url }}">进入</a></td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                      <br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END PAGE -->
+      </div>
+      <!-- BEGIN CHAT -->
+{% endblock %}

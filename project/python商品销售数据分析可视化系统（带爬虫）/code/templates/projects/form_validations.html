@@ -1,0 +1,84 @@
+{% extends 'projects/base.html' %}
+{% block title %}编辑个人中心{% endblock %}
+{% block content %}
+        <div class="content">
+          <ul class="breadcrumb">
+            <li>
+              <p>YOU ARE HERE</p>
+            </li>
+            <li><a href="{% url 'lvguowang:user_updata' %}" class="active">编辑个人信息</a> </li>
+          </ul>
+          <div class="page-title">
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="grid simple form-grid">
+                <div class="grid-title no-border">
+                  <h4>个人 <span class="semi-bold">信息</span></h4>
+                  <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="#grid-config" data-toggle="modal" class="config"></a>
+                    <a href="javascript:;" class="reload"></a>
+                  </div>
+                </div>
+                <div class="grid-body no-border">
+                  <form class="form-no-horizontal-spacing" id="form-condensed" method="post" action="{% url 'lvguowang:user_updata' %}">
+                  {% csrf_token %}
+                    <div class="row column-seperation">
+                      <div class="col-md-6">
+                        <h4>昵称：{{ data.username }}</h4>
+                        <div class="row form-row">
+                          <div class="col-md-12">
+                              <label>邮箱：</label>
+                            <input type="email"  class="form-control" id="form3DateOfBirth" name="email" value="{{ data.email }}"/>
+                          </div>
+                            {% if error.email %}
+                                <p style="color: red">{{ error.email }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="row form-row">
+                          <div class="col-md-12">
+                              <label>年龄：</label>
+                            <input name="age" id="form3Occupation" type="number" class="form-control" value="{{ data.age }}" />
+                          </div>
+                           {% if error.age %}
+                                <p style="color: red">{{ error.age }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="row form-row">
+                          <div class="col-md-8">
+                              <label>性别: </label>
+                            <div class="radio">
+                                {% if data.set == '女' %}
+                                  <input id="male" type="radio" name="set" value="男" >
+                                  <label for="male">男</label>
+                                  <input id="female" type="radio" name="set" value="女" checked="checked">
+                                  <label for="female">女</label>
+                                {% else %}
+                                  <input id="male" type="radio" name="set" value="男" checked="checked">
+                                  <label for="male">男</label>
+                                  <input id="female" type="radio" name="set" value="女" >
+                                  <label for="female">女</label>
+                                {% endif %}
+                            </div>
+                            {% if error.set %}
+                                <p style="color: red">{{ error.set }}</p>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="form-actions">
+                      <div class="pull-right">
+                        <button class="btn btn-danger btn-cons" type="submit"><i class="icon-ok"></i> 提交</button>
+                        <button class="btn btn-white btn-cons" type="button"><a href="{% url 'lvguowang:user_profile' %}">返回</a></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}
